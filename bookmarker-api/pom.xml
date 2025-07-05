@@ -164,7 +164,7 @@
   <version>3.4.0</version>
   <configuration>
     <to>
-      <image>docker.io/mohdakram6174@gmail.com/bookmarker-api:latest</image>
+      <image>docker.io/mohammedaramuddin/bookmarker-api:latest</image>
     </to>
   </configuration>
 </plugin>
