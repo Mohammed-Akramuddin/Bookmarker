@@ -9,7 +9,7 @@ import java.time.Instant;
 public class BookmarkDTO {
     private Long id;
     private String title;
-    private String Url;
+    private String url;
     private Instant createdAt;
 
     public BookmarkDTO() {}
@@ -17,7 +17,7 @@ public class BookmarkDTO {
     public BookmarkDTO(Long id, String title, String Url, Instant createdAt) {
         this.id = id;
         this.title = title;
-        this.Url = Url;
+        this.url = Url;
         this.createdAt = createdAt;
     }
 }
