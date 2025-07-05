@@ -1,5 +1,6 @@
 package com.atg.bookmarker_api.controller;
 
+import com.atg.bookmarker_api.BookmarkDTO;
 import com.atg.bookmarker_api.BookmarksDTO;
 import com.atg.bookmarker_api.Service.BookmarkService;
 import com.atg.bookmarker_api.model.BookmarkRequest;
@@ -23,7 +24,7 @@ public class BookmarkController {
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookmarksDTO createBookmark(@RequestBody @Valid BookmarkRequest BookmarkRequest){
+    public BookmarkDTO createBookmark(@RequestBody @Valid BookmarkRequest BookmarkRequest){
         return bookmarkService.createBookmark(BookmarkRequest);
     }
 }
