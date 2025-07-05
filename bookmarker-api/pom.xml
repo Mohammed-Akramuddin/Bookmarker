@@ -166,8 +166,12 @@
     <to>
       <image>mohammedaramuddin/bookmarker-api:latest</image>
     </to>
+    <allowInsecureRegistries>true</allowInsecureRegistries>
+    <containerizingMode>packaged</containerizingMode>
+    <useDockerCredentialHelper>true</useDockerCredentialHelper>
   </configuration>
 </plugin>
+
 
 
 		</plugins>
