@@ -18,7 +18,7 @@ public class Bookmark {
     @Column(nullable = false, unique = true)
     private String title;
     @Column(nullable = false)
-    private String Url;
+    private String url;
     private Instant createdAt;
     public Bookmark(Long id, String title, String url, Instant createdAt) {
     this.id = id;
