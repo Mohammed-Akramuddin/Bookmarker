@@ -164,7 +164,7 @@
   <version>3.4.0</version>
   <configuration>
     <to>
-      <image>mohammedaramuddin/bookmarker-api:latest</image>
+      <image>docker.io/mohammedaramuddin/bookmarker-api:latest</image>
     </to>
     <allowInsecureRegistries>true</allowInsecureRegistries>
     <containerizingMode>packaged</containerizingMode>
