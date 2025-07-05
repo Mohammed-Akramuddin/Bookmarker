@@ -159,10 +159,23 @@
 				</configuration>
 			</plugin>
 			<plugin>
-      <groupId>com.google.cloud.tools</groupId>
-      <artifactId>jib-maven-plugin</artifactId>
-      <version>3.4.0</version>
-    </plugin>
+  <groupId>com.google.cloud.tools</groupId>
+  <artifactId>jib-maven-plugin</artifactId>
+  <version>3.4.0</version>
+  <configuration>
+    <to>
+      <image>mohdakram6174@gmail.com/bookmarker-api:latest</image>
+      <auth>
+        <username>${env.DOCKER_USERNAME}</username>
+        <password>${env.DOCKER_PASSWORD}</password>
+      </auth>
+    </to>
+    <container>
+      <mainClass>com.atg.bookmarker_api.BookmarkerApiApplication</mainClass>
+    </container>
+  </configuration>
+</plugin>
+
 		</plugins>
 	</build>
 
