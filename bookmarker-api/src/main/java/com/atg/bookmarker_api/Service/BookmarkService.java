@@ -25,7 +25,7 @@ public class BookmarkService {
     public BookmarksDTO searchBookmark(String query, Integer page) {
         int pg=page<1?0:page-1;
         Pageable pageable= PageRequest.of(pg,10, Sort.Direction.DESC,"createdAt");
-        return new BookmarksDTO(bookmarkRepository.searchBookmark(query,pageable));
+        return new BookmarksDTO(bookmarkRepository.findByTitleContainsIgnoreCase(query,pageable));
     }
 }
 
