@@ -1,9 +1,11 @@
-
 package com.atg.bookmarker_api.controller;
 
 import com.atg.bookmarker_api.BookmarksDTO;
 import com.atg.bookmarker_api.Service.BookmarkService;
+import com.atg.bookmarker_api.model.BookmarkRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,5 +21,9 @@ public class BookmarkController {
         }
         return bookmarkService.searchBookmark(query,page);
     }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public BookmarksDTO createBookmark(@RequestBody @Valid BookmarkRequest BookmarkRequest){
+        return bookmarkService.createBookmark(BookmarkRequest);
+    }
 }
-
