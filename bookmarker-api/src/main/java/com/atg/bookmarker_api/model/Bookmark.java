@@ -23,7 +23,7 @@ public class Bookmark {
     public Bookmark(Long id, String title, String url, Instant createdAt) {
     this.id = id;
     this.title = title;
-    this.Url = url;
+    this.url = url;
     this.createdAt = createdAt;
 }
 
