@@ -9,7 +9,7 @@ WORKDIR /app
 COPY target/bookmarker-api-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the application port (change if needed)
-EXPOSE 8082
+EXPOSE 8081
 
 # Run the JAR file
 ENTRYPOINT ["java", "-jar", "app.jar"]
