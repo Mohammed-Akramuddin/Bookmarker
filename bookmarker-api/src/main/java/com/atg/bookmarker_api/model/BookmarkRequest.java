@@ -10,5 +10,5 @@ public class BookmarkRequest {
     @NotEmpty(message = "Titls should not be empty")
     private String title;
     @NotEmpty(message = "Url should not be empty")
-    private String Url;
+    private String url;
 }
