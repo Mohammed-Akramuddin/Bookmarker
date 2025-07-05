@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class BookmarkController {
     @Autowired
     private BookmarkService bookmarkService;
-    @GetMapping
+    @GetMapping("/")
     public BookmarksDTO getBookmark(@RequestParam(name = "page",defaultValue = "1")Integer page,
                                     @RequestParam(name = "query",defaultValue = "")String query){
         if((query==null) || query.trim().length()==0){
@@ -22,7 +22,7 @@ public class BookmarkController {
         }
         return bookmarkService.searchBookmark(query,page);
     }
-    @PostMapping
+    @PostMapping("/add")
     public BookmarkDTO createBookmark(@RequestBody @Valid BookmarkRequest BookmarkRequest){
         return bookmarkService.createBookmark(BookmarkRequest);
     }
