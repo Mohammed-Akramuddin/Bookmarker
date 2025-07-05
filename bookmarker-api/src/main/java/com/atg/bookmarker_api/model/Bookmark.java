@@ -20,5 +20,12 @@ public class Bookmark {
     @Column(nullable = false)
     private String Url;
     private Instant createdAt;
+    public Bookmark(Long id, String title, String url, Instant createdAt) {
+    this.id = id;
+    this.title = title;
+    this.url = url;
+    this.createdAt = createdAt;
+}
+
 }
 
