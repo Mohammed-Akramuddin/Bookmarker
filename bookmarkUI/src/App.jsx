@@ -1,3 +1,4 @@
+// src/App.jsx
 import { useEffect, useState } from 'react';
 import Bookmark from "./Bookmark.jsx";
 import Header from './components/Header.jsx';
@@ -9,10 +10,12 @@ function App() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
 
-    const loadBookmarks = async (page = 1) => {
+    const loadBookmarks = async (page = 1, query = '') => {
         setLoading(true);
-        const { data, error } = await fetchBookmarks(page);
+        const { data, error } = await fetchBookmarks(page, query);
         if (data) {
             setBookmarks(data.bookmarks || []);
             setPagination({
@@ -31,8 +34,14 @@ function App() {
     };
 
     useEffect(() => {
-        loadBookmarks(currentPage);
-    }, [currentPage]);
+        loadBookmarks(currentPage, searchQuery);
+    }, [currentPage, searchQuery]);
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        setCurrentPage(1); // Reset to page 1 on new search
+        setSearchQuery(searchTerm);
+    };
 
     const goToFirst = () => !pagination.first && setCurrentPage(1);
     const goToLast = () => !pagination.last && setCurrentPage(pagination.totalPages);
@@ -44,6 +53,22 @@ function App() {
             background: 'linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%)'
         }}>
             <Header />
+
+            {/* Search Bar */}
+            <div className="container py-4 text-center">
+                <form onSubmit={handleSearch} className="d-flex justify-content-center gap-2">
+                    <input
+                        type="text"
+                        className="form-control form-control-lg bg-dark text-white border-secondary w-50"
+                        placeholder="Search bookmarks..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <button type="submit" className="btn btn-primary px-4 fw-bold">
+                        🔍 Search
+                    </button>
+                </form>
+            </div>
 
             {loading && (
                 <div className="container-fluid py-5">
@@ -73,84 +98,47 @@ function App() {
                         <div className="col-auto">
                             {/* Pagination Buttons */}
                             <div className="d-flex justify-content-center gap-2 mb-4">
-                                <button
-                                    onClick={goToFirst}
-                                    disabled={pagination.first}
-                                    className="btn btn-outline-light position-relative overflow-hidden"
-                                    style={{
-                                        background: pagination.first ? 'rgba(108, 117, 125, 0.3)' : 'linear-gradient(135deg, #06b6d4, #8b5cf6)',
-                                        border: 'none',
-                                        borderRadius: '12px',
-                                        padding: '12px 20px',
-                                        fontWeight: '600',
-                                        transition: 'all 0.3s ease',
-                                        backdropFilter: 'blur(10px)',
-                                        cursor: pagination.first ? 'not-allowed' : 'pointer'
-                                    }}
-                                >
-                                    <span className="position-relative">⏮ First</span>
+                                <button onClick={goToFirst} disabled={pagination.first} className="btn btn-outline-light position-relative overflow-hidden"
+                                        style={{
+                                            background: pagination.first ? 'rgba(108, 117, 125, 0.3)' : 'linear-gradient(135deg, #06b6d4, #8b5cf6)',
+                                            border: 'none', borderRadius: '12px', padding: '12px 20px',
+                                            fontWeight: '600', backdropFilter: 'blur(10px)',
+                                            cursor: pagination.first ? 'not-allowed' : 'pointer'
+                                        }}>
+                                    ⏮ First
                                 </button>
-
-                                <button
-                                    onClick={goToPrevious}
-                                    disabled={!pagination.hasPrevious}
-                                    className="btn btn-outline-light position-relative overflow-hidden"
-                                    style={{
-                                        background: !pagination.hasPrevious ? 'rgba(108, 117, 125, 0.3)' : 'linear-gradient(135deg, #8b5cf6, #ec4899)',
-                                        border: 'none',
-                                        borderRadius: '12px',
-                                        padding: '12px 20px',
-                                        fontWeight: '600',
-                                        transition: 'all 0.3s ease',
-                                        backdropFilter: 'blur(10px)',
-                                        cursor: !pagination.hasPrevious ? 'not-allowed' : 'pointer'
-                                    }}
-                                >
-                                    <span className="position-relative">◀ Prev</span>
+                                <button onClick={goToPrevious} disabled={!pagination.hasPrevious} className="btn btn-outline-light position-relative overflow-hidden"
+                                        style={{
+                                            background: !pagination.hasPrevious ? 'rgba(108, 117, 125, 0.3)' : 'linear-gradient(135deg, #8b5cf6, #ec4899)',
+                                            border: 'none', borderRadius: '12px', padding: '12px 20px',
+                                            fontWeight: '600', backdropFilter: 'blur(10px)',
+                                            cursor: !pagination.hasPrevious ? 'not-allowed' : 'pointer'
+                                        }}>
+                                    ◀ Prev
                                 </button>
-
-                                <button
-                                    onClick={goToNext}
-                                    disabled={!pagination.hasNext}
-                                    className="btn btn-outline-light position-relative overflow-hidden"
-                                    style={{
-                                        background: !pagination.hasNext ? 'rgba(108, 117, 125, 0.3)' : 'linear-gradient(135deg, #ec4899, #f59e0b)',
-                                        border: 'none',
-                                        borderRadius: '12px',
-                                        padding: '12px 20px',
-                                        fontWeight: '600',
-                                        transition: 'all 0.3s ease',
-                                        backdropFilter: 'blur(10px)',
-                                        cursor: !pagination.hasNext ? 'not-allowed' : 'pointer'
-                                    }}
-                                >
-                                    <span className="position-relative">Next ▶</span>
+                                <button onClick={goToNext} disabled={!pagination.hasNext} className="btn btn-outline-light position-relative overflow-hidden"
+                                        style={{
+                                            background: !pagination.hasNext ? 'rgba(108, 117, 125, 0.3)' : 'linear-gradient(135deg, #ec4899, #f59e0b)',
+                                            border: 'none', borderRadius: '12px', padding: '12px 20px',
+                                            fontWeight: '600', backdropFilter: 'blur(10px)',
+                                            cursor: !pagination.hasNext ? 'not-allowed' : 'pointer'
+                                        }}>
+                                    Next ▶
                                 </button>
-
-                                <button
-                                    onClick={goToLast}
-                                    disabled={pagination.last}
-                                    className="btn btn-outline-light position-relative overflow-hidden"
-                                    style={{
-                                        background: pagination.last ? 'rgba(108, 117, 125, 0.3)' : 'linear-gradient(135deg, #f59e0b, #06b6d4)',
-                                        border: 'none',
-                                        borderRadius: '12px',
-                                        padding: '12px 20px',
-                                        fontWeight: '600',
-                                        transition: 'all 0.3s ease',
-                                        backdropFilter: 'blur(10px)',
-                                        cursor: pagination.last ? 'not-allowed' : 'pointer'
-                                    }}
-                                >
-                                    <span className="position-relative">Last ⏭</span>
+                                <button onClick={goToLast} disabled={pagination.last} className="btn btn-outline-light position-relative overflow-hidden"
+                                        style={{
+                                            background: pagination.last ? 'rgba(108, 117, 125, 0.3)' : 'linear-gradient(135deg, #f59e0b, #06b6d4)',
+                                            border: 'none', borderRadius: '12px', padding: '12px 20px',
+                                            fontWeight: '600', backdropFilter: 'blur(10px)',
+                                            cursor: pagination.last ? 'not-allowed' : 'pointer'
+                                        }}>
+                                    Last ⏭
                                 </button>
                             </div>
 
-                            {/* Page Info */}
                             <div className="text-center">
-                                <div className="d-inline-flex align-items-center bg-dark bg-opacity-50 border border-secondary border-opacity-50 rounded-pill px-4 py-2" style={{
-                                    backdropFilter: 'blur(10px)'
-                                }}>
+                                <div className="d-inline-flex align-items-center bg-dark bg-opacity-50 border border-secondary border-opacity-50 rounded-pill px-4 py-2"
+                                     style={{ backdropFilter: 'blur(10px)' }}>
                                     <span className="text-light fw-medium">
                                         Page <span className="text-info fw-bold">{pagination.currentPage}</span> of <span className="text-info fw-bold">{pagination.totalPages}</span>
                                     </span>
@@ -161,17 +149,16 @@ function App() {
                 </div>
             )}
 
-            {/* Custom Styles for Button Hover Effects */}
             <style jsx>{`
                 .btn:not(:disabled):hover {
                     transform: translateY(-2px) !important;
                     box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4) !important;
                 }
-                
+
                 .btn:not(:disabled):active {
                     transform: translateY(0) !important;
                 }
-                
+
                 .btn:disabled {
                     opacity: 0.5 !important;
                 }
