@@ -1,0 +1,9 @@
+com\atg\bookmarker_api\BookmarkDTO.class
+com\atg\bookmarker_api\model\Bookmark.class
+com\atg\bookmarker_api\model\BookmarkRequest.class
+com\atg\bookmarker_api\Repository\BookmarkRepository.class
+com\atg\bookmarker_api\Service\BookmarkService.class
+com\atg\bookmarker_api\BookmarksDTO.class
+com\atg\bookmarker_api\BookmarkMapper.class
+com\atg\bookmarker_api\controller\BookmarkController.class
+com\atg\bookmarker_api\BookmarkerApiApplication.class

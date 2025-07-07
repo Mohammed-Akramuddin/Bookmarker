@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Use a lightweight JDK base image
 FROM openjdk:17-jdk-slim
 
@@ -13,7 +13,7 @@ EXPOSE 8081
 
 # Run the JAR file
 ENTRYPOINT ["java", "-jar", "app.jar"]
-=======
+
 # Use a lightweight JDK base image
 FROM openjdk:17-jdk-slim
 
@@ -28,4 +28,4 @@ EXPOSE 8082
 
 # Run the JAR file
 ENTRYPOINT ["java", "-jar", "app.jar"]
->>>>>>> d79f437826b6ba6d025115917b21d6efd7fd153f
+
